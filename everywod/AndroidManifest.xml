@@ -18,7 +18,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="EveryWod"
+            android:name=".SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:theme="@style/FullscreenTheme" >
