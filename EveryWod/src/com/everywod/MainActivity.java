@@ -5,10 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import com.everywod.fragments.ColorFragment;
 import com.slidingmenu.lib.SlidingMenu;
-
-import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
@@ -23,7 +20,8 @@ public class MainActivity extends BaseActivity {
 
         ViewPager vp = new ViewPager(this);
         vp.setId("VP".hashCode());
-        vp.setAdapter(new ColorPagerAdapter(getSupportFragmentManager()));
+        vp.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager()));
+
         setContentView(vp);
 
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -49,42 +47,29 @@ public class MainActivity extends BaseActivity {
 
         vp.setCurrentItem(0);
         getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-
-		
-		
 	}
 
+    public class DashboardPagerAdapter extends  FragmentPagerAdapter {
 
-
-    public class ColorPagerAdapter extends FragmentPagerAdapter {
-
-        private ArrayList<Fragment> mFragments;
-
-        private final int[] COLORS = new int[] {
-                R.color.red,
-                R.color.green,
-                R.color.blue,
-                R.color.white,
-                R.color.black
-        };
-
-        public ColorPagerAdapter(FragmentManager fm) {
+        public DashboardPagerAdapter(FragmentManager fm) {
             super(fm);
-            mFragments = new ArrayList<Fragment>();
-            for (int color : COLORS)
-                mFragments.add(new ColorFragment(color));
-        }
-
-        @Override
-        public int getCount() {
-            return mFragments.size();
         }
 
         @Override
         public Fragment getItem(int position) {
-            return mFragments.get(position);
+            switch (position){
+                case 1:
+                    return new SearchFragment();
+                default:
+                    return new DashboardFragment();
+            }
         }
 
+        @Override
+        public int getCount() {
+            return 2;  //To change body of implemented methods use File | Settings | File Templates.
+        }
     }
+
 
 }
