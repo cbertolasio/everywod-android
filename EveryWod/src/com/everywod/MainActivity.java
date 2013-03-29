@@ -1,73 +1,90 @@
 package com.everywod;
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.app.ActionBar.Tab;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
+import com.everywod.fragments.ColorFragment;
+import com.slidingmenu.lib.SlidingMenu;
 
-public class MainActivity extends FragmentActivity implements ActionBar.TabListener {
+import java.util.ArrayList;
 
-	AppSectionsPagerAdapter appSectionsPagerAdapter;
-	ViewPager viewPager;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+public class MainActivity extends BaseActivity {
+
+    public MainActivity() {
+        super(R.string.dashboard);
+    }
+
+
+    @Override
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+
+        ViewPager vp = new ViewPager(this);
+        vp.setId("VP".hashCode());
+        vp.setAdapter(new ColorPagerAdapter(getSupportFragmentManager()));
+        setContentView(vp);
+
+        vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrollStateChanged(int arg0) { }
+
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) { }
+
+            @Override
+            public void onPageSelected(int position) {
+                switch (position) {
+                    case 0:
+                        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+                        break;
+                    default:
+                        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+                        break;
+                }
+            }
+
+        });
+
+        vp.setCurrentItem(0);
+        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+
 		
-//		final ActionBar actionBar = getActionBar();
-//		actionBar.setHomeButtonEnabled(false);
-//
-//		appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-//		viewPager = (ViewPager)findViewById(R.id.pager);
-//		viewPager.setAdapter(appSectionsPagerAdapter);
-//		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-//			@Override
-//			public void onPageSelected(int position) {
-//				actionBar.setSelectedNavigationItem(position);
-//
-//				//super.onPageSelected(position);
-//			}
-//		});
 		
-//		actionBar.addTab(actionBar.newTab()
-//				.setText("Navigation")
-//				.setTabListener(this));
-//
-//		actionBar.addTab(actionBar.newTab()
-//				.setText("Dashboard")
-//				.setTabListener(this));
-//
-//		actionBar.addTab(actionBar.newTab()
-//				.setText("Search")
-//				.setTabListener(this));
-		
-		
-	}
-	
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	}
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {		
-	}
-	
-	@Override
-	public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
-		viewPager.setCurrentItem(arg0.getPosition());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_main, menu);
-		return true;
-	}
 
-	
+
+    public class ColorPagerAdapter extends FragmentPagerAdapter {
+
+        private ArrayList<Fragment> mFragments;
+
+        private final int[] COLORS = new int[] {
+                R.color.red,
+                R.color.green,
+                R.color.blue,
+                R.color.white,
+                R.color.black
+        };
+
+        public ColorPagerAdapter(FragmentManager fm) {
+            super(fm);
+            mFragments = new ArrayList<Fragment>();
+            for (int color : COLORS)
+                mFragments.add(new ColorFragment(color));
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+    }
 
 }

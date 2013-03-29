@@ -2,10 +2,7 @@
 <component jdk="Android 4.2.2 Platform" jdk_type="Android SDK">
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$"/>
-	<lib name="ormlite-android-4.45.jar" scope="COMPILE">
-		<relative-module-cls project-related="jar://$PROJECT_DIR$/EveryWod/libs/ormlite-android-4.45.jar!/"/>
-	</lib>
-	<lib name="ormlite-core-4.45.jar" scope="COMPILE">
-		<relative-module-cls project-related="jar://$PROJECT_DIR$/EveryWod/libs/ormlite-core-4.45.jar!/"/>
+	<lib name="android-support-v4.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/EveryWod/libs/android-support-v4.jar!/"/>
 	</lib>
 </component>
