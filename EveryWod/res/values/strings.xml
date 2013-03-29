@@ -10,4 +10,8 @@
     <string name="github">GitHub</string>
     <string name="github_label">SlidingMenu on GitHub</string>
     <string name="dashboard">Dashboard</string>
+    <string name="search_label">Search for WOD</string>
+    <string name="search">Search</string>
+    <string name="addnew">Add New</string>
+    <string name="addnew_label">Add New Log Entry</string>
 </resources>

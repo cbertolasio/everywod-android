@@ -1,6 +1,7 @@
 package com.everywod;
 
 import android.os.Bundle;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import com.actionbarsherlock.view.Menu;
@@ -52,8 +53,8 @@ public class BaseActivity extends SlidingFragmentActivity {
             case android.R.id.home:
                 toggle();
                 return true;
-            case R.id.github:
-                Util.goToGitHub(this);
+            case R.id.addnew:
+                Util.goToAddNew(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

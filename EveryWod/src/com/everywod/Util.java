@@ -11,5 +11,10 @@ public class Util {
 		Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl); 
 		context.startActivity(launchBrowser);
 	}
-	
+
+    public static void goToAddNew(Context context) {
+        Intent intent = new Intent(context, AddNewActivity.class);
+        context.startActivity(intent);
+
+    }
 }

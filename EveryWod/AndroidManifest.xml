@@ -31,6 +31,13 @@
                   android:theme="@style/Theme.Sherlock.Light.DarkActionBar"
                   android:uiOptions="splitActionBarWhenNarrow">
         </activity>
+        <activity android:name=".AddNewActivity"
+                  android:label="@string/addnew_label"
+                  android:configChanges="orientation|screenSize|screenLayout"
+                  android:theme="@style/Theme.Sherlock.Light.DarkActionBar"
+                  android:uiOptions="splitActionBarWhenNarrow">
+
+        </activity>
     </application>
 
 </manifest>
