@@ -20,6 +20,7 @@ bin/
 gen/
 classes/
 gen-external-apklibs/
+proguard_logs/
 
 # maven output folder
 target

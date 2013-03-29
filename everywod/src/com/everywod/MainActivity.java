@@ -19,32 +19,32 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		final ActionBar actionBar = getActionBar();
-		actionBar.setHomeButtonEnabled(false);
-
-		appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-		viewPager = (ViewPager)findViewById(R.id.pager);
-		viewPager.setAdapter(appSectionsPagerAdapter);
-		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
-			@Override
-			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
-				
-				//super.onPageSelected(position);
-			}
-		});
+//		final ActionBar actionBar = getActionBar();
+//		actionBar.setHomeButtonEnabled(false);
+//
+//		appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+//		viewPager = (ViewPager)findViewById(R.id.pager);
+//		viewPager.setAdapter(appSectionsPagerAdapter);
+//		viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener(){
+//			@Override
+//			public void onPageSelected(int position) {
+//				actionBar.setSelectedNavigationItem(position);
+//
+//				//super.onPageSelected(position);
+//			}
+//		});
 		
-		actionBar.addTab(actionBar.newTab()
-				.setText("Navigation")
-				.setTabListener(this));
-		
-		actionBar.addTab(actionBar.newTab()
-				.setText("Dashboard")
-				.setTabListener(this));
-		
-		actionBar.addTab(actionBar.newTab()
-				.setText("Search")
-				.setTabListener(this));
+//		actionBar.addTab(actionBar.newTab()
+//				.setText("Navigation")
+//				.setTabListener(this));
+//
+//		actionBar.addTab(actionBar.newTab()
+//				.setText("Dashboard")
+//				.setTabListener(this));
+//
+//		actionBar.addTab(actionBar.newTab()
+//				.setText("Search")
+//				.setTabListener(this));
 		
 		
 	}
