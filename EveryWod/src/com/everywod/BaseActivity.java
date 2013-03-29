@@ -40,7 +40,6 @@ public class BaseActivity extends SlidingFragmentActivity {
         sm.setShadowWidthRes(R.dimen.shadow_width);
         sm.setShadowDrawable(R.drawable.shadow);
         sm.setBehindOffsetRes(R.dimen.slidingmenu_offset);
-        sm.setAboveOffsetRes(R.dimen.aboveOffset);
         sm.setFadeDegree(0.35f);
         sm.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
 
