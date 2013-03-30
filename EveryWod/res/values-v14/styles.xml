@@ -5,8 +5,17 @@
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light.DarkActionBar">
-        <!-- API 14 theme customizations can go here. -->
+    <style name="AppBaseTheme" parent="@style/Theme.Sherlock">
+        <!-- API 11 theme customizations can go here. -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+
+    </style>
+
+    <style name="FullscreenTheme" parent="@style/Theme.Sherlock.NoActionBar">
+        <item name="buttonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="buttonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
     </style>
 
 </resources>
