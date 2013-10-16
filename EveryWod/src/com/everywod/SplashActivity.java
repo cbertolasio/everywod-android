@@ -2,13 +2,17 @@ package com.everywod;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.everywod.data.MySqlLiteHelper;
 import com.everywod.util.SystemUiHider;
 
 public class SplashActivity extends Activity {
@@ -67,6 +71,8 @@ public class SplashActivity extends Activity {
 				}
 			}
 		});
+
+        new AsyncDatabaseLoader().execute();
 	}
 
 	@Override
@@ -123,4 +129,33 @@ public class SplashActivity extends Activity {
 		mHideHandler.removeCallbacks(mHideRunnable);
 		mHideHandler.postDelayed(mHideRunnable, delayMillis);
 	}
+
+
+    private class AsyncDatabaseLoader extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected void onPreExecute(){
+            // show your progress dialog
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids){
+            MySqlLiteHelper db = new MySqlLiteHelper(getApplicationContext());
+            db.getWritableDatabase();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params){
+            // dismiss your dialog
+            // launch your News activity
+            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+            startActivity(intent);
+
+            // close this activity
+            finish();
+        }
+
+    }
 }
