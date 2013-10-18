@@ -2,6 +2,7 @@ package com.everywod;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -42,10 +43,6 @@ public class MainActivity extends Activity {
         drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, pageTitles));
 
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
 
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
