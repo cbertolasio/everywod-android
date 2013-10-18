@@ -2,21 +2,16 @@ package com.everywod;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
-
 import com.everywod.data.MySqlLiteHelper;
 import com.everywod.util.SystemUiHider;
 
 public class SplashActivity extends Activity {
-	private static final boolean AUTO_HIDE = true;
 	private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
 	private static final boolean TOGGLE_ON_CLICK = true;
 	private static final int HIDER_FLAGS = SystemUiHider.FLAG_HIDE_NAVIGATION;
@@ -53,7 +48,7 @@ public class SplashActivity extends Activity {
 							}
 						}
 
-						if (visible && AUTO_HIDE) {
+						if (visible) {
 							// Schedule a hide().
 							delayedHide(AUTO_HIDE_DELAY_MILLIS);
 						}
@@ -98,21 +93,6 @@ public class SplashActivity extends Activity {
 		}, 4000);
 	}
 
-	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the
-	 * system UI. This is to prevent the jarring behavior of controls going away
-	 * while interacting with activity UI.
-	 */
-	View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-		@Override
-		public boolean onTouch(View view, MotionEvent motionEvent) {
-			if (AUTO_HIDE) {
-				delayedHide(AUTO_HIDE_DELAY_MILLIS);
-			}
-			return false;
-		}
-	};
-
 	Handler mHideHandler = new Handler();
 	Runnable mHideRunnable = new Runnable() {
 		@Override
@@ -148,13 +128,6 @@ public class SplashActivity extends Activity {
 
         @Override
         protected void onPostExecute(Void params){
-            // dismiss your dialog
-            // launch your News activity
-            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-            startActivity(intent);
-
-            // close this activity
-            finish();
         }
 
     }

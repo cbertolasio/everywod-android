@@ -14,4 +14,13 @@
     <string name="search">Search</string>
     <string name="addnew">Add New</string>
     <string name="addnew_label">Add New Log Entry</string>
+    <string-array name="pageTitles_array">
+        <item>The Benchmarks</item>
+        <item>The Girls</item>
+        <item>The Heroes</item>
+        <item>Calculator</item>
+        <item>History</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
 </resources>

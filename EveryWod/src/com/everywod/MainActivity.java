@@ -1,94 +1,161 @@
 package com.everywod;
 
+import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import com.actionbarsherlock.view.MenuItem;
-import com.slidingmenu.lib.SlidingMenu;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 
-public class MainActivity extends BaseActivity {
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-    private ViewPager viewPager;
-    private int searchViewPosition = 1;
-    private int dashboardViewPosition = 0;
+public class MainActivity extends Activity {
+
+
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private static final String TAG = "MainActivity";
+    private ActionBarDrawerToggle drawerToggle;
+
+    private CharSequence drawerTitle;
+    private CharSequence title;
+    private String[] pageTitles;
 
     public MainActivity() {
-        super(R.string.app_name);
     }
 
 
     @Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        viewPager = new ViewPager(this);
-        viewPager.setId("VP".hashCode());
-        viewPager.setAdapter(new DashboardPagerAdapter(getSupportFragmentManager()));
+        this.title = this.drawerTitle = getTitle();
+        drawerLayout  = (DrawerLayout)findViewById(R.id.drawer_layout);
+        drawerList = (ListView)findViewById(R.id.left_drawer);
 
-        setContentView(viewPager);
+        pageTitles = getResources().getStringArray(R.array.pageTitles_array);
+        drawerList.setAdapter(new ArrayAdapter<>(this, R.layout.drawer_list_item, pageTitles));
 
-        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrollStateChanged(int arg0) {
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // enable ActionBar app icon to behave as action to toggle nav drawer
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+        drawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                drawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(title);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            @Override
-            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(drawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
+        };
+        drawerLayout.setDrawerListener(drawerToggle);
 
-            @Override
-            public void onPageSelected(int position) {
-                switch (position) {
-                    case 0:
-                        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-                        break;
-                    default:
-                        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-                        break;
-                }
-            }
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
 
-        });
 
-        viewPager.setCurrentItem(dashboardViewPosition);
-        getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
 	}
 
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    private void selectItem(int position) {
+        // update the main content by replacing fragments
+        Log.d(TAG, Integer.toString(position));
+
+        android.app.Fragment fragment = null;
+        switch (position){
+            case 0:
+               fragment = new TheBenchmarks();
+                break;
+            case 1:
+                fragment = new TheGirls();
+                break;
+            case 2:
+                fragment = new TheHeroes();
+                break;
+            case 3:
+                fragment = new Calculator();
+                break;
+            case 4:
+                fragment = new History();
+                break;
+        }
+
+        //Bundle args = new Bundle();
+        //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        //fragment.setArguments(args);
+
+        android.app.FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+        // update selected item and title, then close the drawer
+        drawerList.setItemChecked(position, true);
+        setTitle(pageTitles[position]);
+        drawerLayout.closeDrawer(drawerList);
+    }
+
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.search:
-                viewPager.setCurrentItem(searchViewPosition);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    public void setTitle(CharSequence title){
+        this.title = title;
+        getActionBar().setTitle(title);
     }
 
-    public class DashboardPagerAdapter extends  FragmentPagerAdapter {
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState){
+        super.onPostCreate(savedInstanceState);
 
-        public DashboardPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 1:
-                    return new SearchFragment();
-                default:
-                    return new DashboardFragment();
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;  //To change body of implemented methods use File | Settings | File Templates.
-        }
+        // sync the toggle state after on restor instance state has occurred
+        drawerToggle.syncState();
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        // pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+
+        if (drawerToggle.onOptionsItemSelected(item)){
+            return true;
+        }
+
+        // handle the other action bar items...
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 
 
 }
