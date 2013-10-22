@@ -35,4 +35,11 @@ public class WorkoutEntity {
     public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
+
+    @Override
+    public String toString(){
+        return getName();
+    }
+
+
 }

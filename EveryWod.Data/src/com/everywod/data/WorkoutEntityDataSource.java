@@ -38,14 +38,14 @@ public class WorkoutEntityDataSource {
     public List<WorkoutEntity> getAllBenchmarks(){
         List<WorkoutEntity> workouts = new ArrayList<WorkoutEntity>();
 
-        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, "WorkoutTypeId=?", new String[] { "B" }, null, null, null);
+        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, "WorkoutTypeId=?", new String[] { "B" }, null, null, "Name ASC");
         return getWorkoutEntities(workouts, cursor);
     }
 
     public List<WorkoutEntity> getAllHeroes(){
         List<WorkoutEntity> workouts = new ArrayList<WorkoutEntity>();
 
-        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, "WorkoutTypeId=?", new String[] { "H" }, null, null, null);
+        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, "WorkoutTypeId=?", new String[] { "H" }, null, null, "Name ASC");
         return getWorkoutEntities(workouts, cursor);
     }
 
@@ -59,14 +59,14 @@ public class WorkoutEntityDataSource {
     public List<WorkoutEntity> getAllGirls(){
         List<WorkoutEntity> workouts = new ArrayList<WorkoutEntity>();
 
-        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, "WorkoutTypeId=?", new String[] { "G" }, null, null, null);
+        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, "WorkoutTypeId=?", new String[] { "G" }, null, null, "Name ASC");
         return getWorkoutEntities(workouts, cursor);
     }
 
     public List<WorkoutEntity> getAll(){
         List<WorkoutEntity> workouts = new ArrayList<WorkoutEntity>();
 
-        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, null, null, null, null, null);
+        Cursor cursor = database.query(MySqlLiteHelper.TABLE_WORKOUT, allColumns, null, null, null, null, "Name ASC");
         return getWorkoutEntities(workouts, cursor);
     }
 
